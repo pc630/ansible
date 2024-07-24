@@ -1,0 +1,40 @@
+---
+
+- hosts: all
+  become: true
+  ignore_unreachable: true
+  pre_tasks:
+
+  - name: install updates on servers
+    apt:
+      upgrade: dist
+      update_cache: yes
+
+
+- hosts: web_servers
+  become: true
+  ignore_unreachable: true
+  tasks:
+
+     - name: install web server
+       package:
+           name: apache2
+           state: latest
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+    - name: install db server
+      package:
+          name: mariadb-server
+          state: latest
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+     - name: install file server
+       package:
+           name: samba
+           state: latest
