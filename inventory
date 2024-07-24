@@ -1,2 +1,4 @@
-10.90.208.60
-
+10.90.208.60 apache_package=apache2 php_package=libapache2-mod-php
+10.90.209.86 apache_package=apache2 php_package=libapache2-mod-php
+10.90.209.211 apache_package=apache2 php_package=libapache2-mod-php
+10.243.6.64  apache_package=apache2 php_package=libapache2-mod-php
