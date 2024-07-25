@@ -1,0 +1,43 @@
+---
+
+- hosts: all
+  become: true
+  ignore_unreachable: true
+  tasks:
+
+    - name: install general updates of the server
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+- hosts: web_servers
+  become: true
+  tags: apache,apache2,Ubuntu
+  tasks:
+
+    - name: install web server & updates
+      apt:
+          name: apache2
+          state: absent
+      register: apache2_state
+
+    - name: copy a html file for the default page
+      copy:
+        src: default_site.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+      when: apache2_state != absent
+
+- hosts: db_servers
+  become: true
+  tags: mariadb
+  tasks:
+
+    - name: install db servers and updates
+      apt:
+           name: mariadb-server
+           state: absent
+
+
